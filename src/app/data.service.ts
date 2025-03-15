@@ -25,17 +25,10 @@ export class DataService {
   current_practice: any;
 
   constructor(private http: HttpClient) { 
-<<<<<<< HEAD
     this.url='https:///intel.kineticseas.com/ksa_router.php';
     this.menu='https:///intel.kineticseas.com/ksa_menu.php';
     this.user='https:///intel.kineticseas.com/ksa_user.php';
     this.skipper='https:///intel.kineticseas.com/kmd_skipper.php';
-=======
-    this.url='https://voiceapi.kineticseas.com/api/kv_router.php';
-    this.menu='https://api.kineticcloud.ai/api/kmd_menu.php';
-    this.user='https://api.kineticcloud.ai/api/kmd_user.php';
-    this.skipper='https://api.kineticcloud.ai/api/kmd_skipper.php';
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
   }
 
   getLocalStorage() {
@@ -87,16 +80,8 @@ export class DataService {
 
 
   getData(path: any, id: any, id2: any, id3: any) {
-<<<<<<< HEAD
     this.getLocalStorage();
-    const data = {
-      "q" : path,
-      "id": id,
-      "id2": id2,
-      "id3": id3,      
-      "uid": this.uid
-    }
-=======
+
       const data = {
         "q" : path,
         "id": id,
@@ -105,7 +90,6 @@ export class DataService {
         "userId": "",   
         "uid": this.uid
       }
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
   
       this.getLocalStorage();
       data['userId'] = this.userId;

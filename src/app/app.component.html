@@ -5,11 +5,7 @@
         <img src="assets/images/logo.svg" alt="Admin Dashboards" />
       </a>
     </div>
-<<<<<<< HEAD
     <div id="sidebar-menu" class="sidebar-menu">
-=======
-    <div id="sidebar-menu" class="sidebar-menu" style="display:none">
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
       <div class="sidebarMenuScroll os-host os-theme-dark os-host-resize-disabled os-host-scrollbar-horizontal-hidden os-host-transition os-host-overflow os-host-overflow-y">
         <div class="os-resize-observer-host observed"><div class="os-resize-observer" style="left: 0px; right: auto;"></div>
       </div>
@@ -23,16 +19,11 @@
         <ul>
           <li>
             <a [routerLink]="['/home']">
-<<<<<<< HEAD
               <i class="bi bi-house"></i>
-=======
-              <i class="bi bi-file-earmark-ruled"></i>
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
               <span class="menu-text">Home</span>
             </a>
           </li>
           <li>
-<<<<<<< HEAD
             <a [routerLink]="['/participants']">
               <i class="bi bi-building"></i>
               <span class="menu-text">Participants</span>
@@ -77,39 +68,10 @@
           <li>
             <a [routerLink]="['/company']">
               <i class="bi bi-gear"></i>
-=======
-            <a onclick="location.reload()">
-              <i class="bi bi-headset"></i>
-              <span class="menu-text">Reconnect</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['/contacts']">
-              <i class="bi bi-file-earmark-ruled"></i>
-              <span class="menu-text">Contacts</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['/sms']">
-              <i class="bi bi-file-earmark-ruled"></i>
-              <span class="menu-text">SMS</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['/missed-calls']">
-              <i class="bi bi-file-font"></i>
-              <span class="menu-text">Missed Calls</span>
-            </a>
-          </li>
-          <li>
-            <a [routerLink]="['/settings']">
-              <i class="bi bi-file-font"></i>
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
               <span class="menu-text">Settings</span>
             </a>
           </li>
           <li>
-<<<<<<< HEAD
             <li>
               <a [routerLink]="['/companies']">
                 <i class="bi bi-nintendo-switch"></i>
@@ -119,10 +81,6 @@
             <li>
             <a href="#">
               <i class="bi bi-door-open"></i>
-=======
-            <a href="#">
-              <i class="bi bi-file-font"></i>
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
               <span (click)="logout()" class="menu-text">Logout</span>
             </a>
           </li>
@@ -134,107 +92,10 @@
     </div>
   </nav>
   <div class="main-container">
-<<<<<<< HEAD
     <app-page-header></app-page-header>
         <div class="content-wrapper-scrol">
           <router-outlet></router-outlet> 
           <app-page-footer></app-page-footer>
     </div> 
-=======
-    <div class="row" id="top-header" style="display:none">
-      <div class="col-sm-12 col-12">
-        <div class="profile-header">
-        <h1>Kinetic Voice Intelligence</h1>
-           <div class="profile-header-content">
-             <div class="profile-header-tiles">
-               <div class="row">
-                 <div class="col-sm-4 col-12">
-                   <div class="profile-tile">
-                     <span class="icon">
-                       <i class="bi bi-pentagon"></i>
-                     </span>
-                     <h6><span id="loginstatus">Not Logged In</span></h6>
-                   </div>
-                </div>
-               <div class="col-sm-4 col-12">
-                 <div class="profile-tile">
-                   <span class="icon">
-                     <i class="bi bi-pin-angle"></i>
-                    </span>
-                    <h6><span id="call-queue-count">No Callers in Queue</span></h6>
-                 </div>
-               </div>
-               <div class="col-sm-4 col-12">
-                 <div class="profile-tile">
-                   <span class="icon">
-                      <i class="bi bi-telephone"></i>
-                   </span>
-                   <h6><span class="caller" id="incoming-call-number">No Active Call</span></h6>
-                 </div>
-                </div>
-               </div>
-              </div>
-             <div class="profile-avatar-tile">
-               <img src="assets/images/user.png" class="img-fluid">
-             </div>
-            </div>
-          </div>
-      </div>
-    <div id="button-bar" class="col-xxl-12">
-      <div class="card">
-        <div class="card-body">
-          <div class="row">
-            <div class="col-6">
-              <div  id="btn-answer-call"  style="display:none" onclick="answerCall();" class="award-tile shade-green">
-                <div class="award-icon">
-                  <i class="bi bi-receipt"></i>
-                </div>
-                <h3>Answer Call</h3>
-                <h4 class="caller"></h4>
-              </div>
-            </div>
-            <div class="col-6">
-              <div  id="btn-reject-call" style="display:none"  onclick="rejectCall();" class="award-tile shade-red">
-                <div class="award-icon">
-                  <i class="bi bi-receipt"></i>
-                </div>
-                <h3>Reject Call</h3>
-                <h4 class="caller"></h4>
-              </div>
-            </div>
-          </div>
-          <div class="row" style="display:none; width:100%" id="show-add-notes">
-          </div>
-          <button id="btn-hang-up" onclick="hangUpCall()" type="button" class="btn btn-secondary m-2" style="display:none"> Hang Up </button>
-          @if(showCall!='Y') {
-            <button (click)="toggleMakeCall();" id="btn-make-call" type="button" class="btn btn-success m-2"> Make Call </button>
-            <button (click)="toggleSendText();" id="btn-make-call" type="button" class="btn btn-success m-2"> Send Text </button>
-          }
-          <button onclick="refreshCallQueue();" id="btn-refresh-queue" type="button" style="display:none" class="btn btn-warning m-2"> Refresh Queue </button>
-          <button id="btn-merge-call" type="button" class="btn btn-warning m-2" style="display:none"> Merge Call </button>
-        </div>
-      </div>
-    </div>
-    @if(showCall=='Y') {
-      <div class="col-xxl-12">
-        <div class="card">
-          <div class="card-body">
-            <div class="row">
-              <div class="col-2" style="text-align: right;">Number: </div>
-              <div class="col-2"><input type=text id="outphone" class="form-control"></div>
-              <div class="col-4" onclick="makeCall();" style="text-align: left;"><button class="btn btn-secondary ms-2">Place Call</button>
-              <button (click)="toggleMakeCall();" class="btn btn-light ms-2">Cancel</button></div>
-            </div>
-          </div>
-        </div>
-        </div>
-    }
-    </div>
-    <div class="content-wrapper-scroll">
-          <router-outlet></router-outlet>
-          <app-page-footer></app-page-footer>
-          <app-active-call></app-active-call>
-    </div>
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
   </div>
 </div>

@@ -6,8 +6,7 @@ import { FormsModule,  FormGroup, FormControl, Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { NgChartsModule, BaseChartDirective } from 'ng2-charts';
 import { DataService } from '../../data.service'; 
-import { CalendarModule } from '../../calendar/calendar.module';
-import { ProviderCalendarModule } from '../../provider-calendar/provider-calendar.module';
+
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ShareholderLineComponent } from '../../charts/shareholder-line/shareholder-line.component';

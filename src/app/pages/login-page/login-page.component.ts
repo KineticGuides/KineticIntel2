@@ -6,8 +6,6 @@ import { FormsModule,  FormGroup, FormControl, Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../data.service'; 
 import { NgxPaginationModule } from 'ngx-pagination';
-import { CalendarModule } from '../../calendar/calendar.module';
-import { ProviderCalendarModule } from '../../provider-calendar/provider-calendar.module';
 import { SearchFilterPipe } from '../../search-filter.pipe';
 
 @Component({

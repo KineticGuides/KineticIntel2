@@ -6,27 +6,20 @@ import { FormsModule,  FormGroup, FormControl, Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../data.service'; 
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
-<<<<<<< HEAD
 import { NgChartsModule, BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { StockPriceService } from '../../stock-price.service';
 import { Price14daysComponent } from '../../charts/price14days/price14days.component';
 import { GlobalQuoteComponent } from '../../charts/global-quote/global-quote.component';
-=======
 import { SearchFilterPipe } from '../../search-filter.pipe';
 import { NgxPaginationModule } from 'ngx-pagination';
 
 declare var $:any;
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
 
 @Component({
   selector: 'app-home-page',
   standalone: true,
-<<<<<<< HEAD
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, Price14daysComponent, GlobalQuoteComponent],
-=======
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, SearchFilterPipe, NgxPaginationModule],
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, Price14daysComponent, GlobalQuoteComponent,SearchFilterPipe, NgxPaginationModule],
   templateUrl: './home-page.component.html',
   styleUrl: './home-page.component.css'
 })
@@ -35,7 +28,6 @@ export class HomePageComponent  implements OnInit {
   data: any;
   txt: any;
   message: any;
-<<<<<<< HEAD
   symbol = 'KSEZ';
   historicalData: any;
   sortedDates: any;
@@ -53,11 +45,9 @@ public updateChart() {
   // Force the chart to re-check and re-render
   this.chart?.update();
 }
-=======
   p: any = 1;
   searchText: string = '';
   calling: any = 'N';
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
 
   constructor(
     private _activatedRoute: ActivatedRoute,
@@ -77,16 +67,7 @@ public updateChart() {
       this._activatedRoute.data.subscribe(({ 
           data })=> { 
           this.data=data;
-<<<<<<< HEAD
       })
-=======
-      }) 
-      $('#sidebar-nav').show()
-      $('#sidebar-menu').show()
-      $('#top-header').show()
-      const userId = localStorage.getItem('userId')
-      $('#loginstatus').html('Connected As: ' + userId)
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
   }
 
   makeCall(): void {
@@ -115,8 +96,6 @@ public updateChart() {
 
   }
 
-<<<<<<< HEAD
-=======
   hideCall(m: any): void {
   
     if (confirm('Are you sure you want to delete this record?')) {
@@ -144,5 +123,4 @@ public updateChart() {
 
 }
 
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
 }

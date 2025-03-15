@@ -20,11 +20,8 @@
     "@angular/router": "^18.0.0",
     "@daypilot/daypilot-lite-angular": "^3.23.0",
     "@ng-bootstrap/ng-bootstrap": "^17.0.0",
-<<<<<<< HEAD
     "chart.js": "^4.4.8",
-=======
     "jquery": "^3.7.1",
->>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
     "ng-bootstrap": "^1.6.3",
     "ng2-charts": "^4.1.1",
     "ngx-bootstrap": "^18.0.2",

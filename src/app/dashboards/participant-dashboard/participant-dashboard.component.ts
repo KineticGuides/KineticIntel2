@@ -5,14 +5,13 @@ import { Subject, takeUntil } from 'rxjs';
 import { FormsModule,  FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../data.service'; 
-import { CalendarModule } from '../../calendar/calendar.module';
-import { ProviderCalendarModule } from '../../provider-calendar/provider-calendar.module';
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-participant-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent],
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgFor],
   templateUrl: './participant-dashboard.component.html',
   styleUrl: './participant-dashboard.component.css'
 })

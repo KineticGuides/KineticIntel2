@@ -2,7 +2,6 @@ import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { WebSocketService } from '../../web-sockets.service';
 import { DataService } from '../../data.service';
-import { CallDashboardComponent } from '../../pages/telecom/call-dashboard/call-dashboard.component';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { StorageService } from '../../localstorage.service';
@@ -10,9 +9,8 @@ import { StorageService } from '../../localstorage.service';
 @Component({
   selector: 'app-page-header',
   standalone: true,
-  imports: [CallDashboardComponent, FormsModule],
-  templateUrl: './page-header.component.html',
-  styleUrl: './page-header.component.css'
+  imports: [FormsModule],
+  templateUrl: './page-header.component.html'
 })
 export class PageHeaderComponent  implements OnInit, OnDestroy {
   data:any;
