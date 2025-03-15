@@ -1,0 +1,149 @@
+<div class="container-fluid">
+    <div class="row">
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="font-size:20px;">Caller Summary</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            No caller summary available.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="font-size:20px;">CoPilot</h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-12">
+                            <textarea style="width:100%; height: 240px;"></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="font-size:20px;">Edit Contact Information</h3>
+                </div>  
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-1">First Name</div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" [(ngModel)]="data.contactData['first_name']">
+                        </div>
+                        <div class="col-1">Last Name</div>
+                        <div class="col-2">
+                            <input type="text" class="form-control" [(ngModel)]="data.contactData['last_name']">
+                        </div>
+                        <div class="col-1">Company</div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" [(ngModel)]="data.contactData['company']">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-1"></div>
+                        <div class="col-2">
+
+                        </div>
+                        <div class="col-1">Email</div>
+                        <div class="col-3">
+                            <input type="text" class="form-control" [(ngModel)]="data.contactData['contact_email']">
+                        </div>
+                        <div class="col-2">
+                            @if(contactUpdated=='N') {
+                                <button (click)="postContact();" class="btn btn-secondary">Update Contact</button>
+                            }
+                            @if(contactUpdated=='Y') {
+                                <button (click)="postContact();" class="btn btn-success">Contact Updated</button>
+                            }
+                        </div>
+                    </div>
+                </div>
+                </div>
+            <div class="card">
+                <div class="card-header">
+                    <h3 style="font-size: 20px;">Call in Progress - {{ data.formData['contact_name'] }} </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="row" style="width: 100%;">
+                                    <div class="col-8">
+                                        <h3 style="font-size: 24px;">Notes</h3>
+                                    </div>
+                                    <div class="col-4" style="text-align: right;">
+
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <div class="card-body">
+                                @if (showNotes=='Y') {
+                                    <app-add-notes-form (reload)="reload(data)" (close)="toggleNotes()" [caller]="caller" [callerSid]="callSid"></app-add-notes-form>
+                                }
+                                <div  *ngFor="let m of data.notes" class="card">
+                                    <div class="card-header p-1" style="background-color: lightgray;">
+                                        <div style="font-size: 13px;" class="m-1">{{ m.formatted_time }}</div>
+                                    </div>
+                                    <div class="card-body" style="font-size:13px;">
+                                        {{ m.notes }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    <div class="col-6">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h3 style="font-size: 24px;">Caller History</h3>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table table-condensed table-striped table-responsive">
+                                            <tbody>
+                                                <ng-container  *ngFor="let m of data.calls">
+                                                    <tr>
+                                                        <td>{{ m.formatted_time }}</td>
+                                                        <td style="text-align: right">{{ m.Direction }} {{ m.CallType }}</td>
+                                                    </tr>    
+                                                    @if (m.CallType=='Voice') {
+                                                        <tr>
+                                                            <td colspan="2">{{ m.summary }}</td>
+                                                        </tr>   
+                                                    } 
+                                                    @if (m.CallType=='SMS') {
+                                                        <tr>
+                                                            <td colspan="2">{{ m.Msg }}</td>
+                                                        </tr>   
+                                                    } 
+                                                </ng-container>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+

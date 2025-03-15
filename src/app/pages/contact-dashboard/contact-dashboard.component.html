@@ -1,0 +1,158 @@
+<div class="container-fluid">
+    <!-- Row start -->
+    <div class="row mb-3">
+        <div class="card-header">
+            <div class="card-header">
+                <ol class="breadcrumb d-lg-flex d-none">
+                    <li class="breadcrumb-item">
+                      <i class="bi bi-house"></i>
+                      <a [routerLink]="['/']">Home</a>
+                    </li>
+                    <li class="breadcrumb-item">Contact Dashboard</li>
+                  </ol>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="card m-2 p-3">
+        <div class="row">
+          <div class="col-8">
+            <h2 style="font-size:24px;">{{ data.formData['first_name'] }} {{ data.formData['last_name'] }}</h2>
+            <h3 style="font-size:20px;">{{ data.formData['formatted'] }}</h3>
+          </div>
+          <div class="col-4" style="text-align: right">
+            <button class="btn btn-success m-2">Call</button>
+            <button class="btn btn-success m-2">Text</button>
+            <button class="btn btn-secondary m-2">Upload Documents</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-12">
+        <div class="card">
+          <div class="card-header">
+              <h3 style="font-size:20px;">Edit Contact Information</h3>
+          </div>  
+          <div class="card-body">
+              <div class="row">
+                  <div class="col-1">First Name</div>
+                  <div class="col-2">
+                      <input type="text" class="form-control" [(ngModel)]="data.contactData['first_name']">
+                  </div>
+                  <div class="col-1">Last Name</div>
+                  <div class="col-2">
+                      <input type="text" class="form-control" [(ngModel)]="data.contactData['last_name']">
+                  </div>
+                  <div class="col-1">Company</div>
+                  <div class="col-3">
+                      <input type="text" class="form-control" [(ngModel)]="data.contactData['company']">
+                  </div>
+              </div>
+              <div class="row">
+                <div class="col-1">Email</div>
+                <div class="col-2">
+                    <input type="text" class="form-control" [(ngModel)]="data.contactData['contact_email']">
+                </div>
+                <div class="col-1">Instagram</div>
+                <div class="col-2">
+                    <input type="text" class="form-control" [(ngModel)]="data.contactData['contact_email']">
+                </div>
+                <div class="col-1">Facebook</div>
+                <div class="col-3">
+                    <input type="text" class="form-control" [(ngModel)]="data.contactData['contact_email']">
+                </div>
+                  <div class="col-2">
+                          <button (click)="postContact();" class="btn btn-primary">Update Contact</button>
+                  </div>
+              </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="row mb-3 p-3">
+            <div class="col-sm-4">
+                  <div class="m-0">
+                    <h3 style="font-size: 20px;">Search</h3>
+                    <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search"><input type="text" id="outphone2" style="display:none">
+                  </div>
+              </div>
+              <div class="col-sm-6" style="padding-top: 20px;">
+                  <h2></h2>
+                </div>
+              <div class="col-sm-2"  style="padding-top: 20px; text-align: right">
+                </div>
+          </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-size: 20px;">Notes</h3>
+                    </div>
+                    <div class="card-body">
+                        <div class="row" style="width:100%;">
+                        <div *ngFor="let m of data.notes| searchFilter: searchText | paginate: { itemsPerPage: ipp, currentPage: p }" class="col-lg-12 col-sm-12 col-12">
+                            <div [routerLink]="['/call-dashboard',m.id]" class="card border-primary">
+                              <div class="card-header" style="width:100%">
+                                <div class="row" style="width:100%">
+                                    <div class="card-title text-primary">
+                                      <span style="width:150px; font-size: 12px;">
+                                        {{ m.formatted_time }}
+                                      </span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="card-body">
+                                <p class="mb-2">Notes: {{ m.notes }}</p>
+                              </div>
+                            </div>
+                          </div>
+                          </div> 
+                          <div class="row">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                            @if(ipp==3) {
+                              <button class="btn btn-light" (click)="showMore()">Show More</button>
+                            }
+                            @if(ipp==10) {
+                              <button class="btn btn-light-outline" (click)="showLess()">Show Less</button>
+                            }
+                          </div>
+                    </div> 
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 style="font-size: 20px;">Recent Calls</h3>
+                    </div>
+                    <div class="card-body">
+                      <div class="table-responsie">
+                        <table class="table table-bordered table-striped m-0">
+                          <thead>
+                            <tr>
+                              <th></th>
+                              <th>Date/Time</th>
+                              <th>Outcome</th>
+                              <th>Duration<br>(sec)</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let m of data.log | searchFilter: searchText | paginate: { itemsPerPage: 25, currentPage: p }">
+                              <td>{{ m.Direction }}</td>
+                              <td>{{ m.formatted_time }}</td>
+                              <td>{{ m.DialCallStatus }}</td>
+                              <td>{{ m.DialCallDuration }}</td>
+                            </tr>
+                          </tbody>
+                          <tfoot>
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls>
+                          </tfoot>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+      </div>
+  
+      </div>
+      </div>

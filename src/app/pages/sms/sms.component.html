@@ -1,0 +1,100 @@
+<div>
+    <div class="row">
+      <div class="col-xxl-12 col-sm-12 col-12">
+        <div style="min-height: 900px;" class="card">
+            <div class="card-header">
+                <div class="card-header">
+                    <ol class="breadcrumb d-lg-flex d-none">
+                        <li class="breadcrumb-item">
+                          <i class="bi bi-house"></i>
+                          <a [routerLink]="['/']">Home</a>
+                        </li>
+                        <li class="breadcrumb-item">SMS Texts</li>
+                      </ol>
+                </div>
+            </div>
+          @if (adding=='Y') {
+          <div class="card-body">
+             <!--  <app-contact-form [path]="'contact-form'" [id]="this.id" (close)="toggleAdd();"></app-contact-form> -->
+          </div>
+         }
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-sm-4">
+                    <div class="m-0">
+                      <label class="form-label">Search</label>
+                      <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search">
+                    </div>
+                </div>
+                <div class="col-sm-6" style="padding-top: 20px;">
+                    <h2></h2>
+                  </div>
+                <div class="col-sm-2"  style="padding-top: 20px; text-align: right">
+                    <button (click)="toggleAdd()" class="m-2 btn btn-primary"><i class="bi bi-clipboard-plus"></i></button>
+                  </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+
+                  <div class="table-responsive">
+                    <table class="table v-middle">
+                      <thead>
+                        <tr>
+                          <th>Contact</th>
+                          <th>Date/Time</th>
+                          <th>Direction</th>
+                          <th>Message</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <ng-container  *ngFor="let m of data.list | searchFilter: searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                        <tr>
+                          <td>{{ m['formatted'] }}</td>
+                          <td>
+                            <div class="media-box">
+                              <img src="assets/images/user5.png" class="media-avatar" alt="Bootstrap Gallery">
+                              <div class="media-box-body">
+                                <div class="text-truncate">{{ m['contact_name'] }}</div>
+                              </div>
+                            </div>
+                          </td>
+                          <td>{{ m['company_name'] }}</td>
+                          <td>{{ m['email'] }}</td>
+                          <td style="width: 100px;">
+                            <button [routerLink]="['/contact-dashboard',m.id]" class="btn btn-secondary">
+                              <i class="bi bi-card-list"></i>
+                            </button>
+                          </td>
+                        <td style="width: 100px;">
+                          <button (click)="editItem(m)" class="btn btn-primary">
+                            <i class="bi bi-clipboard-plus"></i>
+                          </button>
+                        </td>
+                      </tr>
+                      @if (m.edit=='Y') {
+                      <tr>
+                        <td colspan="7">
+                <!--                <app-contact-form [path]="'contact-form'" [id]="m.id" (close)="closeEdit(m);"></app-contact-form> -->
+                       </td>
+                      </tr>
+                    }
+                        </ng-container>
+                      </tbody>
+                      <tfoot>
+                        <tr>
+                          <td colspan="5" class="text-center">
+                            <pagination-controls (pageChange)="p = $event"></pagination-controls></td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Row end -->
+  </div>

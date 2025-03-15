@@ -1,0 +1,79 @@
+         <div class="content-wrapper">
+    <div class="row">
+      <div class="col-xxl-12 col-sm-12 col-12">
+        <div style="min-height: 900px;" class="card">
+          <div class="card-header">
+            <div style="width:100%" class="row">
+              <div class="col-10">
+                <ol class="breadcrumb d-lg-flex d-none">
+                 <li class="breadcrumb-item">
+                    <i class="bi bi-house"></i>
+                    <a [routerLink]="['/']">Home</a>
+                  </li>
+                  <li class="breadcrumb-item breadcrumb-active" aria-current="page">{{ data.crumb1 }}</li>
+                </ol>
+              </div>
+              <div class="col-2">
+                <button (click)="toggleAdd()" class="m-2 btn btn-primary"><i class="bi bi-clipboard-plus"></i></button>
+                 <button (click)="reload()" class="m-2 btn btn-primary"><i class="bi bi-bootstrap-reboot"></i></button>
+               </div>
+             </div>
+           </div>
+           <div style="width:100%" class="row m-2 p-2">
+             <div class="col-10">
+               <h2>{{ data.title }}</h2>
+             </div>
+           </div>
+                  <li class="breadcrumb-item">
+           @if (adding=='Y') {
+           <div class="card-body">
+                 <app-user-form [id]="this.id" (close)="toggleAdd();"></app-user-form>
+           </div>
+          }
+           <div class="card-body">
+             <div class="row mb-3">
+               <div class="col-sm-4 col-12">
+                     <div class="m-0">
+                       <label class="form-label">Search</label>
+                      <input type="text" class="form-control" [(ngModel)]="searchText" placeholder="Search">
+                     </div>
+                   </div>
+             </div>
+             <div class="table-responsive">
+                 <table class="table table-bordered m-0">
+                   <thead>
+                     <tr>
+                       <th *ngFor="let q of data.columns">{{ q.title }}</th>
+                       <th></th>
+                     </tr>
+                   </thead>
+                   <tbody>
+                     <ng-container  *ngFor="let m of data.list | searchFilter: searchText | paginate: { itemsPerPage: 10, currentPage: p }">
+                       <tr>
+                         <td *ngFor="let q of data.columns">{{ m[q['column']] }}</td>
+                         <td>
+                             <i (click)="editItem(m)"  class="bi bi-clipboard-plus"></i>
+                         </td>
+                       </tr>
+                       @if (m.edit=='Y') {
+                       <tr>
+                         <td colspan="7">
+                                 <app-user-form [id]="m.id" (close)="closeEdit(m);"></app-user-form>
+                        </td>
+                       </tr>
+                     }
+                    </ng-container>
+                   </tbody>
+                   <tfoot>
+                     <tr>
+                       <td colspan="5" class="text-center">
+                         <pagination-controls (pageChange)="p = $event"></pagination-controls></td>
+                     </tr>
+                   </tfoot>
+                </table>
+               </div>
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>

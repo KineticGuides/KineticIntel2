@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<!-- <base href="/app/"> -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Kinetic Telecom - AI Communications">
+  <meta name="author" content="Edward Honour - Kinetic Seas AI (OTC:KSAI)" />
+  <link rel="canonical" href="https://www.bootstrap.gallery/">
+  <meta property="og:url" content="https://www.bootstrap.gallery">
+  <meta property="og:title" content="Kinetic MD - AI Enabled Health">
+  <meta property="og:description" content="Marketplace for Bootstrap Admin Dashboards">
+  <meta property="og:type" content="Website">
+  <meta property="og:site_name" content="Bootstrap Gallery">
+  <link rel="shortcut icon" href="assets/images/favicon.svg">
+<<<<<<< HEAD
+  <title>Shareholder Kinetics</title>
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/fonts/bootstrap/bootstrap-icons.css">
+<link rel="stylesheet" href="assets/css/main.css">
+<link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css">
+=======
+  <title>Kinetic Voice</title>
+  <link rel="stylesheet" href="assets/css/animate.css">
+  <link rel="stylesheet" href="assets/fonts/bootstrap/bootstrap-icons.css">
+  <link rel="stylesheet" href="assets/css/main.css">
+  <link rel="stylesheet" href="assets/vendor/overlay-scroll/OverlayScrollbars.min.css">
+  <script src="https://sdk.twilio.com/js/client/v1.13/twilio.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="assets/css/style.css">
+>>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f
+</head>
+<body>
+  <app-root>
+  </app-root> 
+ <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/js/modernizr.js"></script>
+  <script src="assets/js/moment.js"></script>
+<<<<<<< HEAD
+  <script src="assets/vendor/overlay-scroll/jquery.overlayScrollbars.min.js"></script>
+  <script src="assets/vendor/overlay-scroll/custom-scrollbar.js"></script>
+ <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script> 
+  </body>
+  </html>
+=======
+  <script src="https://sdk.twilio.com/js/client/v1.13/twilio.min.js"></script>
+  <script src="assets/js/main.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+  <script>
+    let device;
+    let currentCallSid = '';
+    let currentCaller = '';
+    //let userId='6304462620'; 
+  
+    async function getMediaPermissions() {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        console.log('Microphone access granted.');
+        return stream;
+      } catch (err) {
+        console.error('Microphone access denied: ', err);
+        throw new Error('Microphone permission is required.');
+      }     
+    }         
+            
+    // Function to fetch the token from your PHP server
+    async function fetchToken(userId) {
+      const response = await fetch('https://voiceapi.kineticseas.com/api/voicecat.php',{
+                  method: 'post',
+                  headers:new Headers({
+                      'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                  }),
+                  body: 'login=' + userId
+              });
+      const data = await response.json();
+      return data.token;
+    }
+         
+    // Initialize Twilio Client with the token and media permissions
+    async function initializeTwilioClient() {
+      try {
+        userId = localStorage.getItem('userId');
+        console.log(userId)
+        if (userId!==null) {
+            const mediaStream = await getMediaPermissions(); // Request microphone access
+            const token = await fetchToken(userId);
+            // Create a new Twilio Device instance
+            device = new Twilio.Device(token, {
+              codecPreferences: ['opus', 'pcmu'],
+              debug: true,
+              // Pass the mediaStream (microphone access) to Twilio
+              audioHelper: { inputStream: mediaStream }
+            });
+  
+            device.on('ready', (device) => {
+              console.log('Twilio Device is ready to make/receive calls');
+              $('#incoming-call-number').html('No Active Call');
+              connectWS();
+            });             
+                  
+            device.on('disconnect', (device) => {
+              console.log('Twilio Device is disconnected');
+              $('#incoming-call-number').html('Disconnected');
+              post_online_status('N');
+            });   
+
+            device.on('incoming', (connection) => {
+              $('#incoming-call-number').html('Incoming Call - ' + connection.parameters.From);
+              let cleanedNumber = connection.parameters.From.replace(/^\+1/, '');
+              localStorage.setItem('CallSid', connection.parameters.CallSid);
+              localStorage.setItem('caller', cleanedNumber);
+              currentCallSid = connection.parameters.CallSid;
+              currentCaller = cleanedNumber;
+
+              var i = connection.customParameters;
+              localStorage.setItem('ContactName',i.get('ContactName'));
+              $('.caller').html(connection.parameters.From + '<br>' + i.get('ContactName'))
+
+              incomingConnection = connection;
+              showIncomingCallUI();
+  
+              connection.on('disconnect', () => {
+              console.log('Call disconnected before answering');
+              hideIncomingCallUI(); // Hide the UI when the call is disconnected
+            });
+            });
+
+            device.on('cancel', () => {
+              console.log('Call disconnected before answering');
+              $('#incoming-call-number').html('No Active Call');
+              hideIncomingCallUI(); // Hide the UI when the call is disconnected
+            });
+
+            device.on('error', (error) => {
+              console.error('Twilio Device error: ', error);
+            });
+          }
+        } catch (error) {
+          console.error('Error initializing Twilio Client:', error);
+        }
+      }
+
+// Initialize Twilio when the page loads
+window.onload = function() {
+//initializeTwilioClient();
+};
+
+function formatPhoneNumber(phoneNumber) {
+    phoneNumber = phoneNumber.toString();
+    const formattedNumber = `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3, 6)}-${phoneNumber.slice(6)}`;
+    return formattedNumber;
+}
+
+function login() {
+    initializeTwilioClient();
+    let u = "";
+    u = localStorage.getItem('userId')
+    document.getElementById("loginstatus").innerHTML = "Logged in as : " + formatPhoneNumber(u);
+    localStorage.setItem('connected','Y');
+    localStorage.setItem('online','Y');
+    localStorage.setItem('userId',userId);
+}
+
+function logout() {
+  if (device) {
+    device.destroy();  // This will stop incoming calls and disconnect everything
+      console.log('Twilio Device destroyed, no longer listening for calls');
+      post_online_status('N');
+    } else {
+      console.error('Twilio device is not initialized.');
+      post_online_status('N');
+  }
+
+  post_online_status('N');
+  document.getElementById("loginstatus").innerHTML = "Logged out";;
+  localStorage.setItem('connected','N');
+  localStorage.setItem('online','N');
+  localStorage.setItem('userId','');
+}
+
+function showIncomingCallUI() {
+  $("#btn-make-call").hide();
+  $("#incoming-call").show();
+  $("#btn-answer-call").show();
+  $("#btn-reject-call").show();
+  $("#btn-hang-up").hide();
+  localStorage.setItem('incoming-call','Y');
+}
+
+function hideIncomingCallUI() {
+  $("#btn-make-call").show();
+  $("#incoming-call").hide();
+  $("#btn-answer-call").hide();
+  $("#btn-reject-call").hide();
+  $("#btn-hang-up").hide();
+  localStorage.setItem('incoming-call','N');
+}
+  // Answer the incoming call
+  function answerCall() {
+    if (incomingConnection) {
+        $("#btn-answer-call").hide();
+        $("#btn-reject-call").hide();
+        $("#make-call").hide();
+        $("#btn-hang-up").show();
+        $("#show-add-notes").show();
+        incomingConnection.accept();
+        window.angularNavigate(currentCaller,currentCallSid);
+    }
+  }
+
+    // Take next call in queue
+  function takeNextInQueue() {
+     localStorage.setItem('connect-queue','N');
+     let connection = device.connect({"action": "call-queue"});
+  }
+
+  // Reject the incoming call
+  function rejectCall() {
+    if (incomingConnection) {
+      incomingConnection.reject();
+      hideIncomingCallUI();
+    }
+  }
+
+  async function refreshCallQueue() {
+        const response = await fetch('https://sqllabs.ai/checkcallqueue.php');
+      const data = await response.json();
+        document.getElementById('callqueue').innerHTML = data;
+  }
+
+  async function post_online_status(status) {
+          let u = "";
+          u = localStorage.getItem('userId');
+          const response = await fetch('https://voiceapi.kineticseas.com/api/post_online_status.php?id='+u+'&status='+status,{
+                  method: 'post',
+                  headers:new Headers({
+                      'Content-type': 'application/x-www-form-urlencoded; charset=UTF-8'
+                  }),
+                  body: 'id=' + u
+            });
+      const data = await response.json();
+      console.log(data);
+  }
+
+  // Function to make an outgoing call
+  function makeCall() {
+    phone = document.getElementById('outphone').value;
+    console.log(phone);   
+    const params = { To: phone, From: '+1' + userId }; // Specify the recipient
+    device.connect(params);
+  } 
+
+  function makeCall2() {
+    phone = document.getElementById('outphone2').value;
+    console.log(phone);   
+    const params = { To: phone, From: '+1' + userId }; // Specify the recipient
+    device.connect(params);
+  } 
+
+  // Function to hang up the call
+  function hangUpCall() {
+    console.log("Hangup Call");
+    $("#make-call-section").hide();
+    if (device) {
+      device.disconnectAll();
+    }
+  }
+
+  function toggleInfo() {
+          $("#general-info").toggle();
+  }
+  function showMakeCall() {
+          $("#make-call-section").toggle();
+
+  }
+  function closeCall() {
+          $("#make-call-section").hide();
+  }
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+        localStorage.setItem('incoming-call','N');
+        localStorage.setItem('connect-queue','N');
+        localStorage.setItem('connected','N');
+        localStorage.setItem('online','N');
+        localStorage.setItem('doDisconnect','N');
+        localStorage.setItem('doReconnect','N');
+        localStorage.setItem('answerCall','N');
+        localStorage.setItem('rejectCall','N');
+        login();
+        console.log("Function runs one second after DOM is loaded");
+    }, 500);
+});
+
+setInterval(function() {
+    let doDisconnect = localStorage.getItem('doDisconnect');
+    let doReconnect = localStorage.getItem('doReconnect');
+    let doQueue = localStorage.getItem('connect-queue');
+    let answerCall = localStorage.getItem('answerCall');
+    let rejectCall = localStorage.getItem('rejectCall');
+    if (doDisconnect === 'Y') { localStorage.setItem('doDisconnect','N'); logout(); }
+    if (doReconnect === 'Y') { localStorage.setItem('doReconnect','N'); login(); }
+    if (doQueue === 'Y') { localStorage.setItem('doQueue','N'); takeNextInQueue(); }
+    if (answerCall === 'Y') {  
+                 localStorage.setItem('answerCall','N'); 
+                 if (incomingConnection) {
+                     incomingConnection.accept();
+                     console.log('Call answered');
+                     hideIncomingCallUI();
+                  }
+    }
+    if (rejectCall === 'Y') { 
+             localStorage.setItem('rejectCall','N'); 
+             if (incomingConnection) {
+                   incomingConnection.reject();
+                    console.log('Call rejected');
+                    hideIncomingCallUI();
+             }
+    }
+}, 500); 
+
+</script>
+<script>
+  function connectWS() {
+
+  let channel = localStorage.getItem('userId')
+  let socket = new WebSocket("wss://wss8880.sqllabs.ai/websocket/" + channel);
+  const HEARTBEAT_INTERVAL = 30000; // 30 seconds
+  
+  socket.onopen = function(e) {
+    console.log("Connected to websocket");
+    pingInterval = setInterval(() => {
+        if (socket.readyState === WebSocket.OPEN) {
+          socket.send(JSON.stringify({ type: "ping" })); // Send a simple ping message
+          //console.log("Ping sent to server to keep connection alive.");
+        }
+      }, HEARTBEAT_INTERVAL);
+  };
+  
+  socket.onmessage = function(event) {
+    console.log(`[message] Data received from server: ${event.data}`);
+  };
+  
+  socket.onclose = function(event) {
+    if (event.wasClean) {
+      console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+    } else {
+      console.log('[close] Connection died');
+    }
+  };
+  
+  socket.onerror = function(error) {
+    console.log(`[websocket error]` + error);
+  };
+}
+  </script>
+    </body>
+  
+  </html>
+  
+</body>
+</html>
+>>>>>>> a668f6158e29e03780f56cbebe8d722be19d960f

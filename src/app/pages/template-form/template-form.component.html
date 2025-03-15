@@ -1,0 +1,63 @@
+<div class="container" style="background-color: #f2f2f2; border: 2px dashed blue; padding: 20px; text-align: center; margin: 0 auto;">
+
+<div class="row card card-header" style="background-color: #d0d0d0;">
+    <div class="col-12 p-1">
+        <h3 style="font-size:24px;" class="p-1">{{ data.title }}</h3>
+    </div>
+</div>
+<div class="row">
+    <ng-container *ngFor="let key of keys">
+        @if (key!='table_name'&&key!='id') {
+            <div class="col-sm-4 col-12">
+                @if (colData[key]['type']=="text") {
+                    <div class="mt-2">
+                        <label class="form-label">{{ colData![key]['title'] }}</label>
+                       <input name="country" [(ngModel)]="formData![key]" type="text" class="form-control" placeholder=""> 
+                    </div>
+                }
+                @if (colData[key]['type']=="select1") {
+                    <div class="mt-2">
+                        <label class="form-label">{{ colData![key]['title'] }}</label>
+                       <select *ngfor="let m of data.list1" name="country" [(ngModel)]="formData![key]" class="form-control" placeholder="">
+                            <option *ngfor="let m of data.select1" value="{{ m.value }}">{{ m.title }}</option>
+                       </select>
+                    </div>
+                }   
+                @if (colData[key]['type']=="select2") {
+                    <div class="mt-2">
+                        <label class="form-label">{{ colData![key]['title'] }}</label>
+                       <select *ngfor="let m of data.list1" name="country" [(ngModel)]="formData![key]" class="form-control" placeholder="">
+                            <option *ngfor="let m of data.select1" value="{{ m.value }}">{{ m.title }}</option>
+                       </select>
+                    </div>
+                }
+
+                @if (colData[key]['type']=="textarea") {
+                    <div class="mt-2">
+                        <label class="form-label">{{ colData![key]['title'] }}</label>
+                        <textarea name="country" [(ngModel)]="formData![key]" type="text" class="form-control"> </textarea>
+                    </div>
+                }
+
+            </div>
+        }
+    </ng-container>
+</div>
+<div class="row" style="background-color: #f2f2f2;">
+    <div class="col-sm-4 col-12">
+    </div>
+    <div class="col-sm-4 col-12">
+    </div>
+    <div class="col-sm-4 col-12">
+        <div class="card"  style="background-color: #f2f2f2;">
+          <div class="card-body"  style="background-color: #f2f2f2;">
+            <div class="m-0"  style="background-color: #f2f2f2;">
+                <button (click)="postForm()" class="m-2 btn btn-primary">Save Changes</button>
+                <button (click)="deleteForm()" class="m-2 btn btn-danger">Delete Record</button>
+                <button (click)="closeIt()" class="btn btn-secondary m-2">Cancel</button>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+</div>

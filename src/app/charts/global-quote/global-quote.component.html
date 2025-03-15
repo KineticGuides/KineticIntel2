@@ -1,0 +1,34 @@
+<div class="row">
+    <div class="col-3">
+        <div class="stats-tile" style="height:130px;">
+            <div class="sale-icon shade-red">
+              <i class="bi bi-pie-chart"></i>
+            </div>
+            <div class="sale-details">
+              <h3 class="text-red">${{ v_price }}</h3>
+              <p>Current Price</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-3">
+        <div class="stats-tile" style="height:130px;">
+            <div class="sale-icon shade-blue">
+              <i class="bi bi-pie-chart"></i>
+            </div>
+            <div class="sale-details">
+              <h3 class="text-blue">{{ v_volume }}</h3>
+              <p>Volume</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-6">
+        <div class="stats-tile" style="height:130px;">
+            <div class="sale-details">
+              <p>Prev Close: {{ v_prev_close }}</p>
+              <p>Open: {{ v_open }}</p>
+              <p>Last Date: {{ v_last_day }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+

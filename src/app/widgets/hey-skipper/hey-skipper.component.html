@@ -1,0 +1,40 @@
+@if(card=='Y') {
+<div class="card" style="width:100%">
+    @if(title=='Y') {
+        <div class="card-header">
+            <div class="card-title">Hey Skipper,</div>
+          </div>
+    }
+    <div class="card-body">
+      <div class="create-offer-container">
+        <input type="text" [(ngModel)]="message" (keydown.enter)="postForm()" class="form-control">
+        @if(icons=='Y') {
+        <div class="share-thoughts-footer">
+          <div class="share-icons">
+            <a href="#">
+              <i class="bi bi-pin-map"></i>
+            </a>
+            <a href="#">
+              <i class="bi bi-link-45deg"></i>
+            </a>
+            <a href="#">
+              <i class="bi bi-camera"></i>
+            </a>
+            <a href="#">
+              <i class="bi bi-check-circle"></i>
+            </a>
+          </div>
+        @if(button=='Y') {
+          <button (click)="postForm()" class="btn btn-info btn-sm">Do It!</button>
+        }
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+}
+@if(card=='N') {
+          <div class="create-offer-container">
+            <input type="text" [(ngModel)]="message" (keydown.enter)="postForm()" class="form-control">
+            </div>
+}
