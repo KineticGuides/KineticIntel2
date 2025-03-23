@@ -82,37 +82,6 @@
               <div class="col-12">
                 <div class="card">
                   <div class="header shade-primary">
-                   <h3 style="font-size:18px; color: white;" class="m-3">Current Positions</h3>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table m-0">
-                            <thead>
-                              <tr>
-                                <th>Series</th>
-                                <th>Location</th>
-                                <th style="text-align: right;">Shares</th>
-                                <th style="text-align: right;">Last Date</th>
-                                <th>Other</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colspan="5" class="text-center">
-     <!--                             <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
-    </td> 
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="card">
-                  <div class="header shade-primary">
                    <h3 style="font-size:18px; color: white;" class="m-3">Activity</h3>
                   </div>
                   <div class="card-body">
@@ -132,7 +101,7 @@
                               <tr *ngFor="let m of data.activity">
                                 <td>{{ m.activity_type }}</td>
                                 <td>{{ m.share_date }}</td>
-                                <td style="text-align: right;">{{ m.beginning_shares }}</td>
+                                <td style="text-align: right;">{{ m.begining_shares }}</td>
                                 <td style="text-align: right;">{{ m.net_shares }}</td>
                                <td style="text-align: right;">{{ m.ending_shares }}</td>
                               </tr>
@@ -153,7 +122,26 @@
           </div>
                       
         </div>
-        <div class="col-3" style="text-align: right; vertical-align: top;">
+        <div class="col-3" style="text-align: left; vertical-align: top;">
+          <div class="settings-block">
+            <div class="settings-block-title">Snapshot: {{ data.snapshot['low_date'] }} to {{ data.snapshot['high_date'] }}</div>
+            <div class="settings-block-body">
+              <div class="list-group">
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="row" style="width:100%">
+                    <div class="col-7" style="text-align:left">Shares NOBO</div>
+                    <div class="col-5">{{ data.snapshot['ending_shares_nobo'] }}</div>
+                  </div>
+                </div>
+                <div class="list-group-item d-flex justify-content-between align-items-center">
+                  <div class="row" style="width:100%">
+                    <div class="col-7" style="text-align:left">Shares TA</div>
+                    <div class="col-5">{{ data.snapshot['ending_shares_ta'] }}</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
           <div class="row">
             <div class="col-12">
               <canvas

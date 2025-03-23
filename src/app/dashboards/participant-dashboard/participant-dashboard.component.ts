@@ -6,12 +6,12 @@ import { FormsModule,  FormGroup, FormControl, Validators } from '@angular/forms
 import { HttpClient } from '@angular/common/http';
 import { DataService } from '../../data.service'; 
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
-import { NgFor } from '@angular/common';
+import { ParticipantLineComponent } from '../../charts/participant-line/participant-line.component';
 
 @Component({
   selector: 'app-participant-dashboard',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgFor],
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, ParticipantLineComponent],
   templateUrl: './participant-dashboard.component.html',
   styleUrl: './participant-dashboard.component.css'
 })
@@ -33,6 +33,7 @@ export class ParticipantDashboardComponent  implements OnInit {
       this._activatedRoute.data.subscribe(({ 
           data })=> { 
           this.data=data;
+          console.log("XXXXXXX");
           console.log(this.data);
       }) 
   }

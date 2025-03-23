@@ -157,21 +157,25 @@
                               <tr>
                                 <th>Contact / Name</th>
                                 <th>Address</th>
-                                <th style="text-align: right;">Shares</th>
+                                <th style="text-align: right;">NOBO Shares</th>
+                                <th style="text-align: right;">TA Shares</th>
+                                <th style="text-align: right;">First Date</th>
                                 <th style="text-align: right;">Last Date</th>
-                                <th style="text-align: right;">Location</th>
+                                <th style="text-align: right;">Last Change</th>
                                 <th></th>
                               </tr>
                             </thead>
                             <tbody>
                               <tr *ngFor="let m of data.list | searchFilter: searchText | paginate: { itemsPerPage: 50, currentPage: p }">
-                                <td>{{ m.shareholder_name }}<br>{{ m.shareholder_name_2 }}</td>
+                                <td>{{ m.shareholder_name }}<br>{{ m.shareholder_name2 }}</td>
                                 <td>{{ m.mailing_address_1 }}<br>{{ m.mailing_address_2 }}<br> {{ m.mailing_address_3 }}</td>
-                                <td style="text-align: right;">{{ m.shares }}</td>
-                                <td style="text-align: right;">{{ m.last_dt }}</td>
-                                <td style="text-align: right;">Street</td>
+                                <td style="text-align: right;">{{ m.nobo }}</td>
+                                <td style="text-align: right;">{{ m.ta }}</td>
+                                <td style="text-align: right;">{{ m.first_date }}</td>
+                                <td style="text-align: right;">{{ m.last_date }}</td>
+                                <td style="text-align: right;">{{ m.net_shares }}</td>
                                <td style="text-align: right;"><button class="btn"><div class="icon">
-                                <a [routerLink]="['/shareholder-dashboard',m.id]">
+                                <a [routerLink]="['/shareholder-dashboard',m.shareholder_id]">
                                   <i class="bi bi-clipboard-data"></i>
                                 </a>
                               </div></button></td>

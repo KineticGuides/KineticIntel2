@@ -49,61 +49,63 @@
                           <i class="bi bi-house"></i>
                           <a [routerLink]="['/']">Home</a>
                         </li>
+                        <li class="breadcrumb-item">
+                          <a [routerLink]="['/participants']">Participants</a>
+                        </li>
                         <li class="breadcrumb-item">Participant Dashboard</li>
                       </ol>
                 </div>
             </div>
         </div>
         <div class="row">
+          <div class="col-4">
+            <h2 style="font-size:24px;">{{ data.participant['participant_name'] }}</h2>
+          </div>
+          <div class="col-5">
+            <h2 style="font-size:24px;">{{ data.participant['participant_name'] }}</h2>
+          </div>
+          <div class="col-3">
+            <div class="card card-body">
+              <table class="table table-bordered table-striped">
+                <tr>
+                    <td>Total Shares:</td>
+                    <td style="text-align: right;">{{ data.formData['total_share_count'] }}</td>
+                </tr>
+                <tr>
+                  <td>NOBO Shares:</td>
+                  <td style="text-align: right;">{{ data.formData['nobo_share_count'] }}</td>
+              </tr>
+              <tr>
+                <td>NOBO Holders:</td>
+                <td style="text-align: right;">{{ data.formData['nobo_holder_count'] }}</td>
+            </tr>
+            <tr>
+              <td>Last NOBO Update:</td>
+              <td style="text-align: right;">{{ data.formData['last_date_nobo'] }}</td>
+          </tr>
+          <tr>
+            <td>Last DTC Update:</td>
+            <td style="text-align: right;">{{ data.formData['last_date_dtc'] }}</td>
+        </tr>
+              </table>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12">
+            <app-participant-line  [id]="data.formData.id" [id2]="data.company.id"></app-participant-line>
+          </div>
+        </div>
+        <div class="row">
           <div class="card m-2 p-3">
             <div class="row">
               <div class="col-8">
-                <h2 style="font-size:24px;">{{ data.participant['client'] }}</h2>
               </div>
             </div>    
           <div class="col-12 mt-3">
             <div class="row">
-              <div class="col-6">
-                <div class="card">
-                  <div class="header shade-primary">
-                   <h3 style="font-size:18px; color: white;" class="m-3">Known Holders ({{ data.holder_count }})</h3>
-                  </div>
-                  <div class="card-body">
-                      <div class="table-responsive">
-                          <table class="table m-0">
-                            <thead>
-                              <tr>
-                                <th>Name</th>
-                                <th style="text-align: right;">Shares</th>
-                                <th style="text-align: right;">Last Date</th>
-                                <th></th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <tr>
-<!---                                <td>{{ m.name }}</td>
-                                <td style="text-align: right;">{{ m.shares }}</td>
-                                <td style="text-align: right;">{{ m.last_date}}</td>
-                               <td style="text-align: right;"><button class="btn"><div class="icon">
-                                <a [routerLink]="['/shareholder-dashboard',m.id]">
-                                  <i class="bi bi-clipboard-data"></i>
-                                </a>
-                              </div></button></td> -->
-                              </tr>
-                            </tbody>
-                            <tfoot>
-                              <tr>
-                                <td colspan="5" class="text-center">
-     <!--                             <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
-    </td> 
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                  </div>
-                </div>
-              </div>
-              <div class="col-6">
+              <div class="col-12">
                 <div class="card">
                   <div class="header shade-primary">
                    <h3 style="font-size:18px; color: white;" class="m-3">Activity</h3>
@@ -113,21 +115,24 @@
                           <table class="table m-0">
                             <thead>
                               <tr>
-                                <th>Date</th>
-                                <th>Net Change</th>
-                                <th></th>
+                                <th>Date Range</th>
+                                <th>Monday</th>
+                                <th>Tuesday</th>
+                                <th>Wednesday</th>
+                                <th>Thursday</th>
+                                <th>Friday</th>
+                                <th>Net</th>
                               </tr>
                             </thead>
                             <tbody>
-                              <tr *ngFor="let m in data.activity">
-                                <td>{{ m.activity_date }}</td>
-                                <td>{{ m.shares }}</td>
-                               <td style="text-align: right;"><button class="btn"><div class="icon">
-                                <a>
-                                  <i class="bi bi-clipboard-data"></i>
-                                </a>
-                              </div></button></td>
-                              </tr>
+                              <tr *ngFor="let m of data.activity">
+                                <td>{{ m.d1 }} to {{ m.d5 }}</td>
+                                <td>{{ m.monday }}</td>
+                                <td>{{ m.tuesday }}</td>
+                                <td>{{ m.wednesday }}</td>
+                                <td>{{ m.thursday }}</td>
+                                <td>{{ m.friday }}</td>
+                              </tr> 
                             </tbody>
                             <tfoot>
                               <tr>
@@ -209,28 +214,6 @@
               </div>
                -->
             </div>
-                      <!-- Card start
-            <div class="col-sm-12 col-12">
-    
-              <div class="card">
-                <div class="card-header">
-                  <div class="card-title">Activity / Tasks</div>
-                </div>
-                <div class="card-body">
-                    <div class="row col-12">
-                  <div class="scro300">
-                    <div class="timeline-activity">
-                      <div *ngFor="let m of data.activities" class="activity-log">
-                        <p class="log-name">{{ m.from_first_name }}<small class="log-time">{{ m.activity_date_time }}</small></p>
-                        <div class="log-details"><b>{{ m.activity_time }}</b> - {{ m.activity_dsc }}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  </div>
-                </div>
-              </div>
-            </div> -->
          <div class="col-sm-12 col-12">
     
             </div> 

@@ -156,16 +156,26 @@
                               <thead>
                                 <tr>
                                   <th>Client</th>
-                                  <th style="text-align: right;">Number of NOBOs</th>
-                                  <th style="text-align: right;">Number of Shares</th>
+
+                                  <th style="text-align: right;">Last DTC<br>Date</th>
+                                  <th style="text-align: right;">Last NOBO<br>Date</th>
+                                  <th style="text-align: right;">NOBO<br>Count</th>
+                                  <th style="text-align: right;">NOBO<br>Shares</th>
+                                  <th style="text-align: right;">OBO<br>Shares</th>
+                                  <th style="text-align: right;">Total<br>Shares</th>
                                   <th></th>
                                 </tr>
                               </thead>
                               <tbody>
-                                <tr *ngFor="let m of data.list | searchFilter: searchText | paginate: { itemsPerPage: 40, currentPage: p }">
-                                  <td>{{ m.client }}</td>
-                                  <td style="text-align: right;">{{ m.number_nobos }}</td>
-                                  <td style="text-align: right;">{{ m.shares }}</td>
+                                <tr *ngFor="let m of data.list | searchFilter: searchText | paginate: { itemsPerPage: 50, currentPage: p }">
+                                  <td>{{ m.participant_name }}</td>
+
+                                  <td style="text-align: right;">{{ m.last_date_dtc }}</td>
+                                  <td style="text-align: right;">{{ m.last_date_nobo }}</td>
+                                  <td style="text-align: right;">{{ m.nobo_holder_count }}</td>
+                                  <td style="text-align: right;">{{ m.nobo_share_count_formatted }}</td>
+                                  <td style="text-align: right;">{{ m.obo_share_count_formatted }}</td>
+                                  <td style="text-align: right;">{{ m.total_share_count_formatted }}</td>
                                  <td style="text-align: right;"><button [routerLink]="['/participant-dashboard',m.id]" class="btn"><div class="icon">
                                   <i class="bi bi-clipboard-data"></i>
                                 </div></button></td>
