@@ -10,11 +10,12 @@ import { DataService } from '../../data.service';
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ShareholderLineComponent } from '../../charts/shareholder-line/shareholder-line.component';
+import { ActiveBarComponent } from '../../charts/active-bar/active-bar.component';
 
 @Component({
   selector: 'app-active-participants',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, ShareholderLineComponent],
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, ShareholderLineComponent, ActiveBarComponent],
   templateUrl: './active-participants.component.html',
   styleUrl: './active-participants.component.css'
 })

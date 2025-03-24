@@ -9,11 +9,12 @@ import { DataService } from '../../data.service';
 import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.component';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ShareholderLineComponent } from '../../charts/shareholder-line/shareholder-line.component';
+import { BuyersBarComponent } from '../../charts/buyers-bar/buyers-bar.component';
 
 @Component({
   selector: 'app-sellers',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, ShareholderLineComponent],
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, ShareholderLineComponent, BuyersBarComponent],
   templateUrl: './sellers.component.html',
   styleUrl: './sellers.component.css'
 })
