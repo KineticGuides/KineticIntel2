@@ -11,11 +11,13 @@ import { HeySkipperComponent } from '../../widgets/hey-skipper/hey-skipper.compo
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ShareholderLineComponent } from '../../charts/shareholder-line/shareholder-line.component';
 import { ActiveBarComponent } from '../../charts/active-bar/active-bar.component';
+import { NgxPaginationModule } from 'ngx-pagination';
+import { SearchFilterPipe } from '../../search-filter.pipe';
 
 @Component({
   selector: 'app-active-participants',
   standalone: true,
-  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule, ShareholderLineComponent, ActiveBarComponent],
+  imports: [CommonModule, RouterLink, FormsModule, HeySkipperComponent, NgChartsModule,  ActiveBarComponent, SearchFilterPipe, NgxPaginationModule],
   templateUrl: './active-participants.component.html',
   styleUrl: './active-participants.component.css'
 })
@@ -24,6 +26,7 @@ export class ActiveParticipantsComponent  implements OnInit {
   data: any;
   message: any;
   searchText: string = '';
+  p: any = 1;
 
   constructor(
     private _activatedRoute: ActivatedRoute,

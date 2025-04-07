@@ -22,12 +22,12 @@ import { BuyersComponent } from './analytics/buyers/buyers.component';
 import { SellersComponent } from './analytics/sellers/sellers.component';
 import { NewPositonsComponent } from './analytics/new-positons/new-positons.component';
 import { LostPositonsComponent } from './analytics/lost-positons/lost-positons.component';
-import { TransferAgentComponent } from './analytics/transfer-agent/transfer-agent.component';
 import { ActiveParticipantsComponent } from './analytics/active-participants/active-participants.component';
 import { ParticipantDecreasesComponent } from './analytics/participant-decreases/participant-decreases.component';
 import { ParticipantIncreasesComponent } from './analytics/participant-increases/participant-increases.component';
 import { NewParticipantsComponent } from './analytics/new-participants/new-participants.component';
 import { LostParticipantsComponent } from './analytics/lost-participants/lost-participants.component';
+import { TransferAgentComponentZ } from './pages/transfer-agent/transfer-agent.component';
 
 export const routes: Routes = [
     { path: '', component: HomePageComponent, resolve: { data: ResolverService} },
@@ -50,7 +50,7 @@ export const routes: Routes = [
     { path: 'sellers', component: SellersComponent, resolve: { data: ResolverService} },
     { path: 'new-positions', component: NewPositonsComponent, resolve: { data: ResolverService} },
     { path: 'lost-positions', component: LostPositonsComponent, resolve: { data: ResolverService} },
-    { path: 'transfer-agent', component: TransferAgentComponent, resolve: { data: ResolverService} },
+    { path: 'transfer-agent', component: TransferAgentComponentZ, resolve: { data: ResolverService} },
     { path: 'active-participants', component: ActiveParticipantsComponent, resolve: { data: ResolverService} },
     { path: 'participant-decreases', component: ParticipantDecreasesComponent, resolve: { data: ResolverService} },
     { path: 'participant-increases', component: ParticipantIncreasesComponent, resolve: { data: ResolverService} },
